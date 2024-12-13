@@ -47,6 +47,7 @@
 
 <script>
 import { ESPLoader } from 'esptool-js';
+import { Transport } from 'esptool-js';
 import { downloadFirmware, extractFirmware } from '@/services/firmware';
 
 export default {
@@ -74,13 +75,22 @@ export default {
       
       try {
         const port = await navigator.serial.requestPort();
-        await port.open({ baudRate: 115200 });
+        this.transport = new Transport(port, true);
         
-        this.transport = port;
-        this.espLoader = new ESPLoader(this.transport, { debug: true });
+        const loaderOptions = {
+          transport: this.transport,
+          baudrate: 115200,
+          terminal: {
+            clean() {},
+            writeLine(data) { console.log(data); },
+            write(data) { console.log(data); }
+    },
+          debugLogging: true
+};
+
+        this.espLoader = new ESPLoader(loaderOptions);
         
-        await this.espLoader.connect();
-        const chipInfo = await this.espLoader.chipType();
+        const chipInfo = await this.espLoader.main();
         console.log('Connected to:', chipInfo);
         
         this.isConnected = true;
@@ -89,7 +99,7 @@ export default {
         console.error('Failed to connect:', err);
       } finally {
         this.connecting = false;
-    }
+      }
     },
 
     async startFlashing() {
@@ -131,7 +141,7 @@ export default {
         console.error('Flashing failed:', err);
       } finally {
         this.flashing = false;
-  }
+      }
     },
 
     updateProgress(startPercent, endPercent, currentProgress) {
