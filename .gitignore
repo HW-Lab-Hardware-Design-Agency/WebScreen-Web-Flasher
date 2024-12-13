@@ -38,3 +38,4 @@ yarn-error.log*
 # dotenv environment variables file
 .env
 package-lock.json
+yarn.lock
