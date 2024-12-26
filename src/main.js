@@ -1,12 +1,6 @@
 // src/main.js
 import './style.css'  // We'll move the CSS here
 
-// Import your manifest files
-import manifestArduinoNano from './manifest/manifest_arduino_nano_esp32.json'
-import manifestEsp32S3_16MB from './manifest/manifest_esp32-s3-devkitc-1_16MB.json'
-import manifestEsp32S3_8MB from './manifest/manifest_esp32-s3-devkitc-1_8MB.json'
-import manifestLilygo from './manifest/manifest_lilygo_t_embed_cc1101.json'
-
 // Initialize after DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   const installButton = document.querySelector("esp-web-install-button");
@@ -22,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateManifest() {
     const device = document.querySelector('input[name="device"]:checked')?.value;
     const version = document.querySelector('input[name="fwVersion"]:checked')?.value;
-
+    console.log(device);
+    console.log(version)
     if (!device || !version) {
       installButton.classList.add("invisible");
       return;
@@ -30,13 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Use imported manifests instead of file paths
     const manifests = {
-      'arduino_nano_esp32': manifestArduinoNano,
-      'esp32-s3-devkitc-1_16MB': manifestEsp32S3_16MB,
-      'esp32-s3-devkitc-1_8MB': manifestEsp32S3_8MB,
-      'lilygo_t_embed_cc1101': manifestLilygo
+      'arduino_nano_esp32': `/manifest/${version}/manifest_arduino_nano_esp32.json`,
+      'esp32-s3-devkitc-1_16MB': `/manifest/${version}/manifest_esp32-s3-devkitc-1_16MB.json`,
+      'esp32-s3-devkitc-1_8MB': `/manifest/${version}/manifest_esp32-s3-devkitc-1_8MB.json`,
+      'lilygo_t_embed_cc1101': `/manifest/${version}/manifest_lilygo_t_embed_cc1101.json`
     };
 
     installButton.manifest = manifests[device];
+    console.log(installButton.manifest)
     installButton.classList.remove("invisible");
   }
 });
