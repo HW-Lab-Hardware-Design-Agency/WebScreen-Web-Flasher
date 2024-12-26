@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Capibara Zero Web Flasher</title>
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="dark light" />
+    <style>
+      body {
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Ubuntu, sans-serif;
+        margin: 0;
+        padding: 16px;
+      }
+      h1 {
+        margin-top: 0;
+      }
+      .radios {
+        list-style: none;
+        padding-left: 0;
+      }
+      .radios li {
+        line-height: 1.8em;
+      }
+      /* By default, hide the install button until device & version are selected */
+      esp-web-install-button.invisible {
+        visibility: hidden;
+        position: absolute;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #333;
+          color: #fff;
+        }
+        a {
+          color: #58a6ff;
+        }
+      }
+    </style>
+    <!-- Load ESP Web Tools from unpkg -->
+    <script
+      type="module"
+      src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+    ></script>
+  </head>
+  <body>
+    <h1>Capibara Zero Firmware Installer</h1>
+    <p>Select your device and firmware version, then click the button to flash.</p>
+
+    <!-- 1) Select device -->
+    <h3>Select your device:</h3>
+    <ul class="radios">
+      <li>
+        <label><input type="radio" name="device" value="arduino_nano_esp32" /> 
+          Arduino Nano ESP32
+        </label>
+      </li>
+      <li>
+        <label><input type="radio" name="device" value="esp32-s3-devkitc-1_16MB" />
+          ESP32-S3 DevKitC-1 (16MB)
+        </label>
+      </li>
+      <li>
+        <label><input type="radio" name="device" value="esp32-s3-devkitc-1_8MB" />
+          ESP32-S3 DevKitC-1 (8MB)
+        </label>
+      </li>
+      <li>
+        <label
+          ><input type="radio" name="device" value="lilygo_t_embed_cc1101" />
+          LILYGO T-Embed CC1101
+        </label>
+      </li>
+    </ul>
+
+    <!-- 2) Select version -->
+    <h3>Select your firmware version:</h3>
+    <ul class="radios">
+      <!-- If you have more versions, list them here -->
+      <li>
+        <label><input type="radio" name="fwVersion" value="v0.5.1" />
+          v0.5.1
+        </label>
+      </li>
+    </ul>
+
+    <!-- 3) The Install button (hidden by default until both selections are made) -->
+    <p>
+      <esp-web-install-button class="invisible">
+        <!-- 
+          You can also style or replace the default button text:
+          <button slot="activate">Flash Firmware</button>
+        -->
+      </esp-web-install-button>
+    </p>
+
+    <script>
+      const installButton = document.querySelector("esp-web-install-button");
+
+      // Listen to device & version radio changes
+      document
+        .querySelectorAll('input[name="device"]')
+        .forEach((el) => el.addEventListener("change", updateManifest));
+      document
+        .querySelectorAll('input[name="fwVersion"]')
+        .forEach((el) => el.addEventListener("change", updateManifest));
+
+      /**
+       * Called whenever the user selects a device or version.
+       * We combine the two to pick the correct manifest file.
+       */
+      function updateManifest() {
+        const device = document.querySelector('input[name="device"]:checked')
+          ?.value;
+        const version = document.querySelector('input[name="fwVersion"]:checked')
+          ?.value;
+
+        // If either is missing, hide the button
+        if (!device || !version) {
+          installButton.classList.add("invisible");
+          return;
+        }
+
+        // Build the path to the correct manifest file
+        // Right now, you have 1 manifest per device in src/manifest.
+        // Example: manifest_arduino_nano_esp32.json, etc.
+        // If you later have multiple versions, you'll need separate manifest files
+        // or a subfolder approach. For now, we keep it simple:
+        const manifestPath = `./manifest/manifest_${device}.json`;
+
+        // Or if you stored each version separately, do something like:
+        // const manifestPath = `./manifest/${device}/${version}/manifest.json`;
+
+        // Update the manifest path on the install button
+        installButton.manifest = manifestPath;
+
+        // Now reveal the install button
+        installButton.classList.remove("invisible");
+      }
+    </script>
+  </body>
+</html>
