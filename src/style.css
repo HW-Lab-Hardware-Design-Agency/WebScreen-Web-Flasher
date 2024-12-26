@@ -1,0 +1,35 @@
+/* src/style.css */
+body {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Ubuntu, sans-serif;
+  margin: 0;
+  padding: 16px;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.radios {
+  list-style: none;
+  padding-left: 0;
+}
+
+.radios li {
+  line-height: 1.8em;
+}
+
+esp-web-install-button.invisible {
+  visibility: hidden;
+  position: absolute;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #333;
+    color: #fff;
+  }
+  a {
+    color: #58a6ff;
+  }
+}
