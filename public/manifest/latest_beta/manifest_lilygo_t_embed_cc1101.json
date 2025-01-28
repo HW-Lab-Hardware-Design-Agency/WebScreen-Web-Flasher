@@ -1,6 +1,6 @@
 {
     "name": "Capibara Zero (LILYGO T-Embed CC1101)",
-    "version": "v0.5.2",
+    "version": "latest_beta",
     "home_assistant_domain": "capibara_zero",
     "new_install_prompt_erase": true,
     "builds": [
@@ -8,19 +8,19 @@
         "chipFamily": "ESP32-S3",
         "parts": [
           {
-            "path": "/firmware/lilygo_t_embed_cc1101/v0.5.2/bootloader.bin",
+            "path": "/firmware/lilygo_t_embed_cc1101/latest_beta/bootloader.bin",
             "offset": 0
           },
           {
-            "path": "/firmware/lilygo_t_embed_cc1101/v0.5.2/partitions.bin",
+            "path": "/firmware/lilygo_t_embed_cc1101/latest_beta/partitions.bin",
             "offset": 32768
           },
           {
-            "path": "/firmware/lilygo_t_embed_cc1101/v0.5.2/boot_app0.bin",
+            "path": "/firmware/lilygo_t_embed_cc1101/latest_beta/boot_app0.bin",
             "offset": 57344
           },
           {
-            "path": "/firmware/lilygo_t_embed_cc1101/v0.5.2/firmware.bin",
+            "path": "/firmware/lilygo_t_embed_cc1101/latest_beta/firmware.bin",
             "offset": 65536
           }
         ]
