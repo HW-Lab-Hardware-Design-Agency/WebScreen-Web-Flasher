@@ -1,0 +1,205 @@
+body {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+    margin: 0;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    background: linear-gradient(to right, #EA384D, #D31027);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 3px solid #fff;
+    background: transparent;
+    color: white;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.header p {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.flash-section {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.version-selector {
+    margin-bottom: 20px;
+}
+
+.version-selector h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.radio-option:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+}
+
+.radio-option input[type="radio"] {
+    margin: 0;
+}
+
+.radio-option input[type="radio"]:checked + label {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.radio-option:has(input:checked) {
+    border-color: #667eea;
+    background: #f0f4ff;
+}
+
+.flash-button-container {
+    text-align: center;
+    margin-top: 25px;
+}
+
+esp-web-install-button {
+    --esp-tools-button-color: #667eea;
+    --esp-tools-button-text-color: white;
+}
+
+esp-web-install-button.invisible {
+    display: none;
+}
+
+.instructions {
+    background: #e3f2fd;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #2196f3;
+}
+
+.instructions h3 {
+    margin-top: 0;
+    color: #1976d2;
+}
+
+.instructions ol {
+    padding-left: 20px;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+}
+
+.status {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    display: none;
+}
+
+.status.error {
+    background: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
+.status.success {
+    background: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+footer {
+    color: white;
+}
+
+footer .credits {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9em;
+}
+
+footer .credits img {
+    height: 40px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+footer .credits a {
+    color: #fff;
+    text-decoration: none;
+}
+
+@media (prefers-color-scheme: light) {
+    .flash-section {
+        background: #2d2d2d;
+        color: #e0e0e0;
+    }
+
+    .version-selector h3 {
+        color: #e0e0e0;
+    }
+
+    .radio-option {
+        background: #3d3d3d;
+        border-color: #555;
+        color: #e0e0e0;
+    }
+
+    .radio-option:hover {
+        border-color: #667eea;
+        background: #4d4d6d;
+    }
+
+    .radio-option:has(input:checked) {
+        border-color: #667eea;
+        background: #4d4d6d;
+    }
+
+    .instructions {
+        background: #1e3a5f;
+        border-left-color: #42a5f5;
+    }
+
+    .instructions h3 {
+        color: #42a5f5;
+    }
+}
+
+@media (max-width: 600px) {
+    .radio-group {
+        flex-direction: column;
+    }
+
+    .radio-option {
+        justify-content: flex-start;
+    }
+}

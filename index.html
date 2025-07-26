@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords"
+        content="WebScreen, notifications, productivity, gaming, secondary display, AMOLED, reminders, customizable, tech gadgets, digital experience, Crowdsupply">
+    <meta name="description"
+        content="Meet WebScreen, your new sidekick that keeps you in the loop without breaking your focus. Whether you're deep in a game, streaming, or working hard, WebScreen brings you the updates that matter. Join us on Crowdsupply and let's level up your setup together!">
+    <title>WebScreen Web Flasher</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>WebScreen Flasher ⚡</h1>
+        <p>v1.0</p>
+    </div>
+
+    <div class="flash-section">
+        <div class="version-selector">
+            <h3>✅ Select Firmware Version:</h3>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" name="version" value="main" id="main">
+                    <label for="main">🏅 Stable Release (main branch)</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" name="version" value="dev" id="dev">
+                    <label for="dev">🪲 Development (dev branch)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="flash-button-container">
+            <esp-web-install-button class="invisible" manifest="">
+                <button slot="activate">Connect & Flash WebScreen</button>
+            </esp-web-install-button>
+        </div>
+
+        <div class="status" id="status"></div>
+    </div>
+
+    <div class="instructions">
+        <h3>ℹ️ How to Flash:</h3>
+        <ol>
+            <li><strong>Select Version:</strong> Choose between Latest Stable or Development version</li>
+            <li><strong>Connect Device:</strong> Connect your WebScreen device to your computer via USB</li>
+            <li><strong>Enter Boot Mode:</strong> Hold the BOOT button while pressing and releasing the RESET button,
+                then release BOOT</li>
+            <li><strong>Click Flash:</strong> Click the "Connect & Flash WebScreen" button</li>
+            <li><strong>Select Port:</strong> Choose your device from the list in the browser dialog</li>
+            <li><strong>Wait:</strong> The flashing process will begin automatically</li>
+        </ol>
+        <p><strong>Note:</strong> This tool requires a Chromium-based browser (Chrome, Edge, Opera) with Web Serial API
+            support.</p>
+    </div>
+
+    <footer>
+        <div class="credits">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/logo.png" alt="WebScreen Logo">
+            </a>
+            <p xmlns:cc="http://creativecommons.org/ns#" xmlns:dct="http://purl.org/dc/terms/"><a property="dct:title"
+                    rel="cc:attributionURL" href="https://webscreen.cc/"><strong>WebScreen</strong></a> by <a
+                    rel="cc:attributionURL dct:creator" property="cc:attributionName"
+                    href="https://hwlab.io/"><strong>HW Media
+                        Lab LLC</strong></a> is licensed under <a
+                    href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank"
+                    rel="license noopener noreferrer" style="display:inline-block;"><strong>CC BY-SA 4.0</strong><img
+                        style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                        src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img
+                        style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                        src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img
+                        style="height:22px!important;margin-left:3px;vertical-align:text-bottom;"
+                        src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
