@@ -32,22 +32,28 @@
                     <input type="radio" name="version" value="dev" id="dev">
                     <label for="dev">🪲 Development (dev branch)</label>
                 </div>
+                <div class="radio-option">
+                    <input type="radio" name="version" value="4.x" id="firmware4" aria-describedby="firmware4Note">
+                    <label for="firmware4">🧪 4.x Development — LVGL 9.5</label>
+                </div>
             </div>
+            <p id="firmware4Note">Choose 4.x for the firmware 4.0 / LVGL 9.5 demo apps. This is a development build.</p>
         </div>
 
         <div class="flash-button-container">
             <esp-web-install-button class="invisible" manifest="">
                 <button slot="activate">Connect & Flash WebScreen</button>
             </esp-web-install-button>
+            <button type="button" id="downloadFirmware" hidden>Download firmware (.bin)</button>
         </div>
 
-        <div class="status" id="status"></div>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
     </div>
 
     <div class="instructions">
         <h3>ℹ️ How to Flash:</h3>
         <ol>
-            <li><strong>Select Version:</strong> Choose between Latest Stable or Development version</li>
+            <li><strong>Select Version:</strong> Choose Stable, Development, or 4.x Development (LVGL 9.5)</li>
             <li><strong>Connect Device:</strong> Connect your WebScreen device to your computer via USB</li>
             <li><strong>Enter Boot Mode:</strong> Hold the BOOT button while pressing and releasing the RESET button,
                 then release BOOT</li>
@@ -57,6 +63,8 @@
         </ol>
         <p><strong>Note:</strong> This tool requires a Chromium-based browser (Chrome, Edge, Opera) with Web Serial API
             support.</p>
+        <p>To save a firmware file without connecting a device, select a version and click
+            <strong>Download firmware (.bin)</strong>. The merged image is intended for flashing at offset <code>0x0</code>.</p>
     </div>
 
     <footer>

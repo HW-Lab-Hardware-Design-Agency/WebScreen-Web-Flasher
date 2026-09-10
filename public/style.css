@@ -87,6 +87,28 @@ body {
     margin-top: 25px;
 }
 
+#downloadFirmware {
+    margin: 12px 0 0;
+    padding: 10px 16px;
+    border: 1px solid #667eea;
+    border-radius: 6px;
+    background: white;
+    color: #333;
+    font: inherit;
+    cursor: pointer;
+    max-width: 100%;
+}
+
+#downloadFirmware:disabled {
+    opacity: 0.65;
+    cursor: progress;
+}
+
+#firmware4Note {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
 esp-web-install-button {
     --esp-tools-button-color: #667eea;
     --esp-tools-button-text-color: white;
