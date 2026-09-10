@@ -7,7 +7,7 @@ Flash WebScreen firmware directly from your browser - no IDE or setup required!
 ## Usage
 
 1. Open [WebScreen Flasher](https://flash.webscreen.cc) in Chrome, Edge, or Opera
-2. Select Stable (`main`), Development (`dev`), or **4.x Development — LVGL 9.5**
+2. Select Stable (`main`), Development (`3.x`), or **4.x Development — LVGL 9.5**
 3. Connect WebScreen via USB and enter boot mode:
    - Hold **BOOT** button → Press **RESET** → Release **BOOT**
 4. Click "Connect & Flash WebScreen"
@@ -22,7 +22,7 @@ To save a binary without connecting a device, select a version and click **Downl
 - Browser-based flashing with Web Serial API
 - Auto-detects WebScreen devices (VID: 0x303A, PID: 0x1001)
 - Pulls firmware from [WebScreen Software Repository](https://github.com/HW-Lab-Hardware-Design-Agency/WebScreen-Software)
-- Choose between stable (`main`), development (`dev`), and LVGL 9.5 development (`4.x`) builds
+- Choose between stable (`main`), development (`3.x`), and LVGL 9.5 development (`4.x`) builds
 - Download the selected merged firmware image for offline flashing
 
 ## Requirements

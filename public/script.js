@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const downloadButton = document.getElementById('downloadFirmware');
     const versions = new Map([
         ['main', 'Stable Release'],
-        ['dev', 'Development'],
+        ['3.x', '3.x Development'],
         ['4.x', '4.x Development — LVGL 9.5']
     ]);
     let manifestUrl = null;
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createManifest(version) {
-        const branch = version; // 'main', 'dev', or '4.x'
+        const branch = version; // 'main', '3.x', or '4.x'
         const baseUrl = `https://raw.githubusercontent.com/HW-Lab-Hardware-Design-Agency/WebScreen-Software/${branch}/webscreen/build/esp32.esp32.esp32s3`;
 
         // ESP32-S3 VID/PID for WebScreen board
