@@ -3,6 +3,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs/promises');
 const os = require('node:os');
 const path = require('node:path');
+const {execFileSync} = require('node:child_process');
+execFileSync(process.execPath, [path.join(__dirname, '../scripts/version-assets.cjs'), '--check'], {stdio: 'inherit'});
 const {chromium} = require(process.env.PLAYWRIGHT_PATH || 'playwright');
 const firmwareBase = 'https://raw.githubusercontent.com/HW-Lab-Hardware-Design-Agency/WebScreen-Software';
 (async () => {
@@ -15,6 +17,12 @@ const firmwareBase = 'https://raw.githubusercontent.com/HW-Lab-Hardware-Design-A
         page.on('pageerror', error => errors.push(error.message));
         page.on('download', download => downloads.push(download));
         await page.route('https://**/*', route => route.abort());
+        // An edge cache can retain the unversioned script after index.html changes.
+        await page.route('**/script.js*', route => {
+            if (new URL(route.request().url()).searchParams.has('v')) return route.continue();
+            return route.fulfill({contentType: 'text/javascript',
+                body: 'throw new Error("Stale unversioned flasher script loaded");'});
+        });
         // Keep the existing third-party installer out of deterministic download tests.
         await page.route('https://unpkg.com/**', route => route.fulfill({
             contentType: 'text/javascript', body: 'customElements.define("esp-web-install-button", class extends HTMLElement {});'
@@ -99,7 +107,7 @@ const firmwareBase = 'https://raw.githubusercontent.com/HW-Lab-Hardware-Design-A
         await page.locator('#firmware4').check();
         if (process.env.SCREENSHOT_PATH) await page.screenshot({path: process.env.SCREENSHOT_PATH});
         assert.deepEqual(errors, []);
-        console.log('PASS: all firmware manifests, download bytes/names, errors, cancellation, retry, manifest cleanup, responsive layout');
+        console.log('PASS: versioned assets, all firmware manifests, download bytes/names, errors, cancellation, retry, manifest cleanup, responsive layout');
     } finally {
         await browser.close();
         await fs.rm(directory, {recursive: true, force: true});

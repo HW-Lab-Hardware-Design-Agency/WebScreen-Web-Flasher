@@ -35,6 +35,8 @@ To save a binary without connecting a device, select a version and click **Downl
 
 This is a static site. Run `python3 -m http.server 8783 --bind 127.0.0.1 --directory public` and open <http://127.0.0.1:8783>.
 
+After changing `public/script.js` or `public/style.css`, run `node scripts/version-assets.cjs` and commit the updated `public/index.html`. Asset URLs include a content hash so browser and CDN caches fetch the matching files. Deploy the complete `public/` directory together. `node scripts/version-assets.cjs --check` verifies the references without changing files.
+
 With Playwright and Chrome installed, run `PLAYWRIGHT_PATH=/path/to/playwright node tests/browser.test.cjs`. Set `FLASHER_URL` for a different server. Tests cover all three manifests, download contents and filenames, failed requests, version switching, and mobile layout. They simulate the installer and never flash hardware.
 
 ## License
