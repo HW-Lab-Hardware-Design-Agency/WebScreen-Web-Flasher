@@ -1,102 +1,313 @@
-body {
-    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
-    margin: 0;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.6;
-    background: linear-gradient(to right, #EA384D, #D31027);
+/* WebScreen Flasher. Shares its look with WebScreen Admin: aurora backdrop,
+   frosted cards, gradient accents. Light by default, dark when the system asks. */
+:root {
+    --primary: #ea384d;
+    --gradient-primary: linear-gradient(135deg, #ff5f6d 0%, #ea384d 45%, #b5179e 100%);
+    --glow-primary: 0 10px 22px -8px rgba(234, 56, 77, 0.55);
+    --bg: #f2f3f8;
+    --text: #14161c;
+    --text-muted: #5b6270;
+    --border: rgba(16, 24, 40, 0.08);
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-solid: #ffffff;
+    --glass-border: rgba(255, 255, 255, 0.9);
+    --glass-shadow: 0 0 0 1px rgba(16, 24, 40, 0.05), 0 10px 30px -12px rgba(16, 24, 40, 0.18);
+    --tile-bg: rgba(255, 255, 255, 0.75);
+    --tile-selected: rgba(234, 56, 77, 0.07);
+    --aurora-1: rgba(255, 95, 109, 0.22);
+    --aurora-2: rgba(124, 58, 237, 0.18);
+    --aurora-3: rgba(14, 165, 233, 0.14);
+    --success-bg: rgba(0, 184, 148, 0.12);
+    --success-text: #0b7a63;
+    --error-bg: rgba(214, 48, 49, 0.10);
+    --error-text: #b3261e;
+    --info-bg: rgba(9, 132, 227, 0.10);
+    --info-text: #0b63b3;
+    --logo-filter: brightness(0);
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    color-scheme: light dark;
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0e0f14;
+        --text: #f1f2f6;
+        --text-muted: #a3a9b6;
+        --border: rgba(255, 255, 255, 0.10);
+        --glass-bg: rgba(28, 30, 40, 0.66);
+        --glass-solid: #1c1e28;
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --glass-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 16px 40px -16px rgba(0, 0, 0, 0.7);
+        --tile-bg: rgba(255, 255, 255, 0.05);
+        --tile-selected: rgba(234, 56, 77, 0.16);
+        --aurora-1: rgba(234, 56, 77, 0.28);
+        --aurora-2: rgba(124, 58, 237, 0.26);
+        --aurora-3: rgba(14, 165, 233, 0.16);
+        --success-bg: rgba(0, 184, 148, 0.16);
+        --success-text: #5fe0c2;
+        --error-bg: rgba(214, 48, 49, 0.2);
+        --error-text: #ff9a94;
+        --info-bg: rgba(9, 132, 227, 0.18);
+        --info-text: #8cc8ff;
+        --logo-filter: brightness(0) invert(1);
+    }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    background: var(--bg);
+}
+
+body {
+    font-family: 'Inter', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+    margin: 0 auto;
+    padding: 32px 20px 40px;
+    max-width: 760px;
+    line-height: 1.6;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Aurora backdrop: fixed, behind everything, never intercepts input */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(55rem 32rem at 8% -8%, var(--aurora-1), transparent 62%),
+        radial-gradient(48rem 30rem at 96% 2%, var(--aurora-2), transparent 60%),
+        radial-gradient(46rem 30rem at 70% 108%, var(--aurora-3), transparent 60%);
+}
+
+:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* Header */
 .header {
     text-align: center;
-    margin-bottom: 30px;
-    padding: 20px;
-    border-radius: 10px;
-    border: 3px solid #fff;
-    background: transparent;
-    color: white;
+    margin-bottom: 28px;
+    padding: 12px 0 0;
 }
 
 .header h1 {
     margin: 0;
-    font-size: 2.5em;
+    font-size: clamp(2rem, 7vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-.header p {
-    margin: 0;
-    font-size: 1.2em;
+/* The title is gradient-filled text; the emoji keeps its own colors */
+.title-emoji {
+    -webkit-text-fill-color: initial;
+    font-size: 0.8em;
 }
 
-.flash-section {
-    background: #f8f9fa;
-    padding: 25px;
-    border-radius: 10px;
+.header-tagline {
+    margin: 10px 0 0;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+.version-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 10px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    background: var(--glass-bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+/* Frosted cards */
+.flash-section,
+.instructions {
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    backdrop-filter: blur(18px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    box-shadow: var(--glass-shadow);
+    padding: 26px;
     margin: 20px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.version-selector {
-    margin-bottom: 20px;
-}
-
-.version-selector h3 {
-    margin-bottom: 15px;
-    color: #333;
-}
-
-.radio-group {
+.version-selector h3,
+.instructions h3 {
     display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 16px;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+}
+
+.step-chip {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    flex: none;
+    border-radius: 10px;
+    background: var(--gradient-primary);
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: var(--glow-primary);
+}
+
+/* Version choices: the whole tile is the click target */
+.radio-group {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
 }
 
 .radio-option {
+    position: relative;
     display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 15px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: var(--tile-bg);
     cursor: pointer;
-    transition: all 0.3s ease;
-    background: white;
+    transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .radio-option:hover {
-    border-color: #667eea;
-    background: #f0f4ff;
-}
-
-.radio-option input[type="radio"] {
-    margin: 0;
-}
-
-.radio-option input[type="radio"]:checked + label {
-    color: #667eea;
-    font-weight: 600;
+    transform: translateY(-2px);
+    border-color: rgba(234, 56, 77, 0.45);
+    box-shadow: 0 14px 30px -14px rgba(16, 24, 40, 0.3);
 }
 
 .radio-option:has(input:checked) {
-    border-color: #667eea;
-    background: #f0f4ff;
+    border-color: var(--primary);
+    background: var(--tile-selected);
+    box-shadow: 0 0 0 3px rgba(234, 56, 77, 0.16);
 }
 
+.radio-option input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin: 2px 0 0;
+    border: 2px solid var(--text-muted);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.radio-option input[type="radio"]:checked {
+    border-color: var(--primary);
+    box-shadow: inset 0 0 0 4px var(--primary);
+}
+
+.radio-option label {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.radio-option label::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+}
+
+.option-title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.option-desc {
+    margin-top: 2px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+#firmware4Note {
+    margin: 14px 0 0;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* Actions */
 .flash-button-container {
-    text-align: center;
-    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+esp-web-install-button.invisible {
+    display: none;
+}
+
+esp-web-install-button button[slot="activate"] {
+    padding: 14px 28px;
+    border: 0;
+    border-radius: 14px;
+    background: var(--gradient-primary);
+    color: #fff;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    max-width: 100%;
+    box-shadow: var(--glow-primary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+esp-web-install-button button[slot="activate"]:hover {
+    transform: translateY(-1px);
+    filter: saturate(1.1) brightness(1.05);
+    box-shadow: 0 14px 26px -8px rgba(234, 56, 77, 0.65);
 }
 
 #downloadFirmware {
-    margin: 12px 0 0;
-    padding: 10px 16px;
-    border: 1px solid #667eea;
-    border-radius: 6px;
-    background: white;
-    color: #333;
+    padding: 10px 18px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--tile-bg);
+    color: var(--text);
     font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
     cursor: pointer;
     max-width: 100%;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+#downloadFirmware:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
 }
 
 #downloadFirmware:disabled {
@@ -104,124 +315,145 @@ body {
     cursor: progress;
 }
 
-#firmware4Note {
-    margin-bottom: 0;
-    font-size: 0.9rem;
-}
-
-esp-web-install-button {
-    --esp-tools-button-color: #667eea;
-    --esp-tools-button-text-color: white;
-}
-
-esp-web-install-button.invisible {
-    display: none;
-}
-
-.instructions {
-    background: #e3f2fd;
-    padding: 20px;
-    border-radius: 8px;
-    margin: 20px 0;
-    border-left: 4px solid #2196f3;
-}
-
-.instructions h3 {
-    margin-top: 0;
-    color: #1976d2;
-}
-
-.instructions ol {
-    padding-left: 20px;
-}
-
-.instructions li {
-    margin-bottom: 8px;
-}
-
+/* Status line (script.js toggles display and the type class) */
 .status {
-    margin-top: 15px;
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
     display: none;
-}
-
-.status.error {
-    background: #ffebee;
-    color: #c62828;
-    border: 1px solid #ffcdd2;
+    margin-top: 18px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
 }
 
 .status.success {
-    background: #e8f5e8;
-    color: #2e7d32;
-    border: 1px solid #c8e6c9;
+    background: var(--success-bg);
+    color: var(--success-text);
 }
 
+.status.error {
+    background: var(--error-bg);
+    color: var(--error-text);
+}
+
+.status.info {
+    background: var(--info-bg);
+    color: var(--info-text);
+}
+
+/* Instructions */
+.instructions ol {
+    list-style: none;
+    counter-reset: step;
+    margin: 0 0 16px;
+    padding: 0;
+}
+
+.instructions li {
+    counter-increment: step;
+    position: relative;
+    margin: 0;
+    padding: 9px 0 9px 44px;
+}
+
+.instructions li + li {
+    border-top: 1px solid var(--border);
+}
+
+.instructions li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 8px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    background: rgba(234, 56, 77, 0.12);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.instructions p {
+    margin: 12px 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.instructions code {
+    padding: 2px 6px;
+    border-radius: 6px;
+    background: var(--tile-bg);
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.85em;
+}
+
+/* Footer */
 footer {
-    color: white;
+    color: var(--text-muted);
 }
 
 footer .credits {
     text-align: center;
-    margin-top: 40px;
-    font-size: 0.9em;
+    margin-top: 36px;
+    font-size: 0.875rem;
 }
 
-footer .credits img {
-    height: 40px;
+footer .credits .navbar-brand img {
+    height: 32px;
     vertical-align: middle;
-    margin-right: 10px;
+    filter: var(--logo-filter);
+}
+
+footer .credits p {
+    margin: 12px 0 0;
 }
 
 footer .credits a {
-    color: #fff;
+    color: var(--text);
     text-decoration: none;
 }
 
-@media (prefers-color-scheme: light) {
-    .flash-section {
-        background: #2d2d2d;
-        color: #e0e0e0;
+footer .credits a:hover {
+    color: var(--primary);
+}
+
+@media (max-width: 640px) {
+    body {
+        padding: 20px 14px 32px;
     }
 
-    .version-selector h3 {
-        color: #e0e0e0;
-    }
-
-    .radio-option {
-        background: #3d3d3d;
-        border-color: #555;
-        color: #e0e0e0;
-    }
-
-    .radio-option:hover {
-        border-color: #667eea;
-        background: #4d4d6d;
-    }
-
-    .radio-option:has(input:checked) {
-        border-color: #667eea;
-        background: #4d4d6d;
-    }
-
+    .flash-section,
     .instructions {
-        background: #1e3a5f;
-        border-left-color: #42a5f5;
+        padding: 20px 16px;
+        border-radius: 18px;
     }
 
-    .instructions h3 {
-        color: #42a5f5;
+    .radio-group {
+        grid-template-columns: 1fr;
     }
 }
 
-@media (max-width: 600px) {
-    .radio-group {
-        flex-direction: column;
+/* People who ask for less transparency get solid surfaces */
+@media (prefers-reduced-transparency: reduce) {
+    :root {
+        --glass-bg: var(--glass-solid);
     }
 
-    .radio-option {
-        justify-content: flex-start;
+    body::before {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+        animation: none !important;
     }
 }

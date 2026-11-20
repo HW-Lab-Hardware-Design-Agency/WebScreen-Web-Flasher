@@ -10,34 +10,37 @@
         content="Meet WebScreen, your new sidekick that keeps you in the loop without breaking your focus. Whether you're deep in a game, streaming, or working hard, WebScreen brings you the updates that matter. Join us on Crowdsupply and let's level up your setup together!">
     <title>WebScreen Web Flasher</title>
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css?v=6bee3489fe12">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=c5fb617560d3">
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
 </head>
 
 <body>
     <div class="header">
-        <h1>WebScreen Flasher ⚡</h1>
-        <p>v1.0</p>
+        <h1>WebScreen Flasher <span class="title-emoji" aria-hidden="true">⚡</span></h1>
+        <p class="header-tagline">Install WebScreen firmware from your browser. <span class="version-badge">v1.1</span></p>
     </div>
 
     <div class="flash-section">
         <div class="version-selector">
-            <h3>✅ Select Firmware Version:</h3>
+            <h3><span class="step-chip" aria-hidden="true">1</span> Select firmware version</h3>
             <div class="radio-group">
                 <div class="radio-option">
                     <input type="radio" name="version" value="main" id="main">
-                    <label for="main">🏅 Stable Release (main branch)</label>
+                    <label for="main"><span class="option-title">Stable Release</span><span class="option-desc">main branch · LVGL 8</span></label>
                 </div>
                 <div class="radio-option">
                     <input type="radio" name="version" value="3.x" id="firmware3">
-                    <label for="firmware3">🪲 Development (3.x branch)</label>
+                    <label for="firmware3"><span class="option-title">Development</span><span class="option-desc">3.x branch · LVGL 8</span></label>
                 </div>
                 <div class="radio-option">
                     <input type="radio" name="version" value="4.x" id="firmware4" aria-describedby="firmware4Note">
-                    <label for="firmware4">🧪 4.x Development — LVGL 9.5</label>
+                    <label for="firmware4"><span class="option-title">4.x Development</span><span class="option-desc">4.x branch · LVGL 9.6</span></label>
                 </div>
             </div>
-            <p id="firmware4Note">Choose 4.x for the firmware 4.0 / LVGL 9.5 demo apps. This is a development build.</p>
+            <p id="firmware4Note">Choose 4.x for LVGL 9.6 and the LVGL demo apps. This is a development build.</p>
         </div>
 
         <div class="flash-button-container">
@@ -51,9 +54,9 @@
     </div>
 
     <div class="instructions">
-        <h3>ℹ️ How to Flash:</h3>
+        <h3>How to flash</h3>
         <ol>
-            <li><strong>Select Version:</strong> Choose Stable, Development, or 4.x Development (LVGL 9.5)</li>
+            <li><strong>Select Version:</strong> Choose Stable, Development, or 4.x Development (LVGL 9.6)</li>
             <li><strong>Connect Device:</strong> Connect your WebScreen device to your computer via USB</li>
             <li><strong>Enter Boot Mode:</strong> Hold the BOOT button while pressing and releasing the RESET button,
                 then release BOOT</li>
@@ -88,7 +91,7 @@
         </div>
     </footer>
 
-    <script src="script.js?v=b0cce3065655"></script>
+    <script src="script.js?v=07295c01a0a2"></script>
 </body>
 
 </html>

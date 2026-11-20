@@ -47,7 +47,7 @@ const firmwareBase = 'https://raw.githubusercontent.com/HW-Lab-Hardware-Design-A
         assert.equal(await page.locator('esp-web-install-button').isVisible(), false);
         assert.equal(await page.locator('#downloadFirmware').isVisible(), false);
         let previous = null;
-        for (const [version, title] of [['main', 'Stable Release'], ['3.x', '3.x Development'], ['4.x', '4.x Development — LVGL 9.5']]) {
+        for (const [version, title] of [['main', 'Stable Release'], ['3.x', '3.x Development'], ['4.x', '4.x Development — LVGL 9.6']]) {
             await page.locator(`input[name=version][value="${version}"]`).check();
             const {manifest, url} = await page.evaluate(async () => {
                 const url = document.querySelector('esp-web-install-button').manifest;
