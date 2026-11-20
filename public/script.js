@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const versions = new Map([
         ['main', 'Stable Release'],
         ['3.x', '3.x Development'],
-        ['4.x', '4.x Development — LVGL 9.5']
+        ['4.x', '4.x Development — LVGL 9.6']
     ]);
     let manifestUrl = null;
     let downloadController = null;
