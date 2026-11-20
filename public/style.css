@@ -110,6 +110,12 @@ body::before {
     -webkit-text-fill-color: transparent;
 }
 
+/* The title is gradient-filled text; the emoji keeps its own colors */
+.title-emoji {
+    -webkit-text-fill-color: initial;
+    font-size: 0.8em;
+}
+
 .header-tagline {
     margin: 10px 0 0;
     color: var(--text-muted);
